@@ -17,6 +17,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+
 <style>
   /* ── Reset & tokens ─────────────────────────────── */
   *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
@@ -31,10 +34,11 @@
     --gold:      #c8a45c;
     --gold-soft: #d9bc7e;
     --gold-dim:  #a08040;
-    --white:     #f0ede6;
-    --text:      #d4d2cb;
+    --white:     #ecebe4;
+    --text:      #d2d1cb;
     --muted:     #8a8a9a;
     --muted-2:   #6a6a7a;
+    --platform:  #7fa8c9;
     --pub:       #6a8ed8;
     --inv:       #b07ad8;
     --dev:       #6abf95;
@@ -60,6 +64,16 @@
 
   ::selection { background: var(--gold); color: var(--bg); }
 
+  /* ── Focus ring (keyboard-only) ──────────────── */
+  :where(a, button, summary, .btn, [tabindex]):focus { outline: none; }
+  :where(a, button, summary, .btn, [tabindex]):focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .btn:focus-visible { outline-offset: 4px; border-radius: 100px; }
+  .nav-cta:focus-visible { outline-offset: 4px; border-radius: 100px; }
+
   /* ── Background atmosphere ──────────────────────── */
   .bg-fixed { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   #particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
@@ -73,15 +87,15 @@
   .place-layer::before {
     content: ''; position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 130% 70% at 50% 100%, rgba(230,150,75,.55), transparent 65%),
-      radial-gradient(ellipse 90% 55% at 75% 90%, rgba(240,180,90,.40), transparent 70%),
-      radial-gradient(ellipse 110% 75% at 15% 95%, rgba(95,70,140,.45), transparent 70%),
+      radial-gradient(ellipse 130% 70% at 50% 100%, rgba(36,82,108,.55), transparent 65%),
+      radial-gradient(ellipse 90% 55% at 75% 90%, rgba(58,72,124,.45), transparent 70%),
+      radial-gradient(ellipse 110% 75% at 15% 95%, rgba(20,38,68,.55), transparent 70%),
       var(--bg-image, none);
     background-size: cover; background-position: center;
   }
   .place-layer::after {
     content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 42%;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='m' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%230a0a0f' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%230a0a0f' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='%23151522' d='M0,260 L120,180 L260,220 L380,140 L520,200 L660,120 L820,180 L960,100 L1100,170 L1240,130 L1380,200 L1520,150 L1600,180 L1600,400 L0,400 Z'/%3E%3Cpath fill='%230d0d15' d='M0,300 L100,260 L240,290 L360,250 L500,290 L640,250 L780,290 L920,260 L1060,300 L1200,270 L1340,310 L1480,280 L1600,310 L1600,400 L0,400 Z'/%3E%3Cg fill='%23c8a45c' opacity='.45'%3E%3Crect x='220' y='280' width='1' height='40'/%3E%3Crect x='340' y='270' width='1' height='50'/%3E%3Crect x='480' y='285' width='1' height='35'/%3E%3Crect x='620' y='275' width='1' height='45'/%3E%3Crect x='770' y='282' width='1' height='38'/%3E%3Crect x='910' y='268' width='1' height='52'/%3E%3Crect x='1080' y='278' width='1' height='42'/%3E%3Crect x='1220' y='285' width='1' height='35'/%3E%3Crect x='1380' y='272' width='1' height='48'/%3E%3C/g%3E%3Crect width='100%25' height='100%25' fill='url(%23m)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='m' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%230a0a0f' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%230a0a0f' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='%23121826' d='M0,260 L120,180 L260,220 L380,140 L520,200 L660,120 L820,180 L960,100 L1100,170 L1240,130 L1380,200 L1520,150 L1600,180 L1600,400 L0,400 Z'/%3E%3Cpath fill='%230a0e18' d='M0,300 L100,260 L240,290 L360,250 L500,290 L640,250 L780,290 L920,260 L1060,300 L1200,270 L1340,310 L1480,280 L1600,310 L1600,400 L0,400 Z'/%3E%3Cg fill='%23e6ecf2' opacity='.35'%3E%3Crect x='220' y='280' width='1' height='40'/%3E%3Crect x='340' y='270' width='1' height='50'/%3E%3Crect x='480' y='285' width='1' height='35'/%3E%3Crect x='620' y='275' width='1' height='45'/%3E%3Crect x='770' y='282' width='1' height='38'/%3E%3Crect x='910' y='268' width='1' height='52'/%3E%3Crect x='1080' y='278' width='1' height='42'/%3E%3Crect x='1220' y='285' width='1' height='35'/%3E%3Crect x='1380' y='272' width='1' height='48'/%3E%3C/g%3E%3Ccircle cx='1280' cy='90' r='28' fill='%23e6ecf2' opacity='.18'/%3E%3Crect width='100%25' height='100%25' fill='url(%23m)'/%3E%3C/svg%3E");
     background-size: cover; background-position: center bottom;
     background-repeat: no-repeat;
   }
@@ -97,15 +111,15 @@
     opacity: .14; will-change: transform;
   }
   .orb-1 { width: 520px; height: 520px;
-    background: radial-gradient(circle, rgba(200,164,92,.55), transparent 70%);
+    background: radial-gradient(circle, rgba(200,164,92,.42), transparent 70%);
     top: -8%; left: -6%;
     animation: orbDrift1 28s ease-in-out infinite alternate; }
   .orb-2 { width: 420px; height: 420px;
-    background: radial-gradient(circle, rgba(110,90,170,.45), transparent 70%);
+    background: radial-gradient(circle, rgba(70,95,160,.45), transparent 70%);
     top: 40%; right: -8%;
     animation: orbDrift2 32s ease-in-out infinite alternate; }
   .orb-3 { width: 360px; height: 360px;
-    background: radial-gradient(circle, rgba(50,90,150,.4), transparent 70%);
+    background: radial-gradient(circle, rgba(40,80,130,.45), transparent 70%);
     bottom: 5%; left: 30%;
     animation: orbDrift3 24s ease-in-out infinite alternate; }
   @keyframes orbDrift1 { from {transform:translate(0,0);} to {transform:translate(10vw,15vh);} }
@@ -184,7 +198,14 @@
   .container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
 
   section { padding: clamp(4rem, 8vh, 7rem) 0; position: relative; }
-  section + section { border-top: 1px solid rgba(255,255,255,.035); }
+  section + section { border-top: none; }
+  section + section::before {
+    content: ''; position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: min(70%, 720px); height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,164,92,.22), transparent);
+    pointer-events: none;
+  }
 
   .eyebrow {
     display: inline-block;
@@ -220,6 +241,22 @@
   .section-head { max-width: 760px; margin-bottom: 3rem; }
   .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
   .section-head p { color: var(--muted); margin-top: .9rem; font-size: 1.02rem; line-height: 1.7; }
+
+  /* ── Split-text hero ──────────────────────────── */
+  .hero-h1 .word { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .12em; margin-bottom: -.12em; }
+  .hero-h1 .word .inner { display: inline-block; will-change: transform, opacity; }
+
+  /* ── Tier card cursor spotlight ───────────────── */
+  .tier-card { --mx: 50%; --my: 50%; }
+  .tier-card::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    border-radius: var(--radius);
+    background: radial-gradient(360px circle at var(--mx) var(--my), rgba(200,164,92,.10), transparent 55%);
+    opacity: 0; transition: opacity .35s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tier-card:hover::after { opacity: 1; }
+  }
 
   /* ── Reveal on scroll ──────────────────────────── */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
@@ -277,14 +314,10 @@
     color: var(--muted-2);
     display: flex; flex-direction: column; align-items: center; gap: .5rem;
   }
-  .hero-scroll-hint::after {
-    content: ''; width: 1px; height: 24px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollLine 2.2s ease-in-out infinite;
-  }
-  @keyframes scrollLine {
-    0%,100% { transform: scaleY(.4); opacity: .4; transform-origin: top; }
-    50% { transform: scaleY(1); opacity: 1; transform-origin: top; }
+  .hero-scroll-hint svg { color: var(--gold); animation: scrollChev 1.8s ease-in-out infinite; }
+  @keyframes scrollChev {
+    0%, 100% { transform: translateY(0); opacity: .55; }
+    50%      { transform: translateY(4px); opacity: 1; }
   }
 
   /* ── Buttons ───────────────────────────────────── */
@@ -343,6 +376,7 @@
     display: inline-flex; align-items: center; gap: .5rem;
   }
   .company-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  .company-tag.platform::before  { background: var(--platform); }
   .company-tag.publisher::before { background: var(--pub); }
   .company-tag.investor::before  { background: var(--inv); }
   .company-tag.developer::before { background: var(--dev); }
@@ -351,6 +385,7 @@
   .legend { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.4rem; font-size: .78rem; color: var(--muted); }
   .legend span { display: inline-flex; align-items: center; gap: .5rem; }
   .legend span::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+  .legend .l-plat::before { background: var(--platform); }
   .legend .l-pub::before { background: var(--pub); }
   .legend .l-inv::before { background: var(--inv); }
   .legend .l-dev::before { background: var(--dev); }
@@ -393,10 +428,20 @@
   /* ── Quote ─────────────────────────────────────── */
   .quote {
     margin-top: 3rem;
-    padding: 2rem clamp(1.5rem, 3vw, 2.5rem);
+    padding: 2rem clamp(1.5rem, 3vw, 2.5rem) 2rem clamp(2.5rem, 4vw, 3.5rem);
     border-left: 2px solid var(--gold);
     background: linear-gradient(90deg, rgba(200,164,92,.04), transparent 80%);
     border-radius: 0 var(--radius) var(--radius) 0;
+    position: relative;
+  }
+  .quote::before {
+    content: '\201C';
+    position: absolute;
+    top: -.4rem; left: .6rem;
+    font-family: var(--serif);
+    font-size: 5rem; line-height: 1;
+    color: var(--gold); opacity: .18;
+    pointer-events: none;
   }
   .quote blockquote {
     font-family: var(--serif); font-style: italic;
@@ -473,8 +518,15 @@
     line-height: 1; white-space: nowrap; text-align: right;
   }
   .tier-price small {
-    font-size: .62rem; color: var(--muted); display: block; margin-top: .35rem;
-    letter-spacing: .12em; text-transform: uppercase; font-family: var(--font); font-weight: 500;
+    display: inline-block;
+    margin-top: .5rem;
+    padding: .15rem .55rem;
+    border: 1px solid rgba(200,164,92,.35);
+    border-radius: 100px;
+    font-size: .58rem; color: var(--gold-soft);
+    letter-spacing: .16em; text-transform: uppercase;
+    font-family: var(--font); font-weight: 600;
+    background: rgba(200,164,92,.04);
   }
   .tier-value { font-size: .76rem; color: var(--muted); margin-top: .8rem; }
   .tier-value strong { color: var(--gold-soft); font-weight: 600; }
@@ -517,6 +569,15 @@
   }
   .letter p { color: var(--white); margin-bottom: 1rem; }
   .letter p:last-child { margin-bottom: 0; }
+  .letter > p:nth-of-type(1)::first-letter {
+    font-family: var(--serif);
+    font-size: 3.4em;
+    font-weight: 700;
+    color: var(--gold);
+    float: left;
+    line-height: .9;
+    padding: .15em .18em 0 0;
+  }
   .letter .letter-sign {
     margin-top: 1.8rem;
     font-family: var(--font);
@@ -611,11 +672,10 @@
   }
 
   /* ── CTA section ───────────────────────────────── */
-  .cta {
-    text-align: center;
-    padding: clamp(5rem, 10vh, 8rem) 0;
-    background: radial-gradient(ellipse at center, rgba(200,164,92,.08), transparent 70%);
-  }
+  .cta { text-align: center; padding: clamp(5rem, 10vh, 8rem) 0; background: radial-gradient(ellipse at center, rgba(200,164,92,.08), transparent 70%); }
+  .cta-seal { display: flex; justify-content: center; margin-bottom: 1.4rem; }
+  .cta-seal svg { animation: sealSpin 60s linear infinite; }
+  @keyframes sealSpin { to { transform: rotate(360deg); } }
   .cta h2 { max-width: 780px; margin: 0 auto; }
   .cta .lead { margin: 1.4rem auto 0; text-align: center; }
   .cta-actions {
@@ -640,6 +700,8 @@
     font-size: .82rem;
   }
   .foot-inner { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+  .foot-flourish { font-family: var(--serif); font-style: italic; color: var(--gold-dim); font-size: .9rem; flex: 1; text-align: center; min-width: 100%; order: 3; padding-top: .4rem; border-top: 1px solid var(--border); margin-top: .6rem; }
+  @media (min-width: 880px) { .foot-flourish { min-width: 0; flex: 0 0 auto; order: initial; padding: 0; border: none; margin: 0; } }
   .foot-meta { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
   .foot-meta span:not(:last-child)::after { content: '·'; margin-left: 1.2rem; color: var(--border-2); }
 
@@ -649,10 +711,15 @@
     .bg-fixed, #particleCanvas, .grain, .progress, .topnav, .hero-scroll-hint, .nav-cta { display: none !important; }
     main, section { padding: 1rem 0 !important; page-break-inside: avoid; }
     section + section { border-top: 1px solid #ccc; }
+    section + section::before { display: none !important; }
     h1, h2, h3, h4 { color: #111 !important; }
     p, .muted, li { color: #333 !important; }
     .gold, .eyebrow, .tier-price, .stat-num .gold { color: #8a6a2e !important; }
     .stats, .feature-card, .outcome, .tier-card, .benefit, .quote, .letter, .mini-tier-list li { background: #fafafa !important; border-color: #ddd !important; box-shadow: none !important; }
+    .tier-card::after, .quote::before { display: none !important; }
+    .hero-h1 .word { overflow: visible !important; }
+    .hero-h1 .word .inner { transform: none !important; opacity: 1 !important; }
+    .cta-seal svg { animation: none !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
     .tiers-more[open] > summary, .tiers-more > summary { display: none !important; }
     .tiers-more > .mini-tier-list { display: grid !important; }
@@ -708,8 +775,8 @@
     <div class="place-layer" aria-hidden="true"></div>
     <div class="place-overlay" aria-hidden="true"></div>
     <p class="eyebrow reveal">MonteGames 2026 · October 2–4 · Porto Montenegro</p>
-    <h1 class="reveal delay-1 serif">
-      Where the gaming<br>industry actually <span class="gold">talks.</span>
+    <h1 class="reveal delay-1 serif hero-h1">
+      Where the gaming industry actually <span class="gold">talks.</span>
     </h1>
     <p class="lead reveal delay-2" style="margin-top:1.6rem;">
       Three days on the Adriatic with the people who decide what gets made next.
@@ -717,7 +784,30 @@
     </p>
 
     <p class="prepared-for reveal delay-3" id="preparedFor"></p>
-    <div class="hero-scroll-hint" aria-hidden="true">Read on</div>
+
+    <div class="stats reveal delay-3" aria-label="By the numbers">
+      <div class="stat">
+        <div class="stat-num"><span class="gold">500</span></div>
+        <div class="stat-label">Decision-makers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="gold">10K</span></div>
+        <div class="stat-label">Awards stream</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="gold">3</span></div>
+        <div class="stat-label">Days, one room</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Year <span class="gold">3</span></div>
+        <div class="stat-label">And growing</div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="10" height="14" viewBox="0 0 10 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,2 5,6 9,2"/><polyline points="1,7 5,11 9,7"/></svg>
+    </div>
   </section>
 
   <section id="letter" class="container">
@@ -746,13 +836,20 @@
     </div>
 
     <div class="company-grid reveal delay-2">
-      <span class="company-tag publisher">Apple</span>
-      <span class="company-tag publisher">Google</span>
+      <span class="company-tag platform">Apple</span>
+      <span class="company-tag platform">Google</span>
       <span class="company-tag publisher">Netflix Games</span>
       <span class="company-tag publisher">Devolver Digital</span>
       <span class="company-tag publisher">Ubisoft</span>
       <span class="company-tag publisher">Raw Fury</span>
       <span class="company-tag" style="border-style:dashed;color:var(--muted);">… and 480 more</span>
+    </div>
+
+    <div class="legend reveal delay-3" aria-hidden="true">
+      <span class="l-plat">Platforms</span>
+      <span class="l-pub">Publishers</span>
+      <span class="l-inv">Investors</span>
+      <span class="l-dev">Developers</span>
     </div>
   </section>
 
@@ -928,6 +1025,13 @@
 
   <section id="contact" class="cta">
     <div class="container">
+      <div class="cta-seal reveal" aria-hidden="true">
+        <svg viewBox="0 0 80 80" width="68" height="68">
+          <circle cx="40" cy="40" r="38" fill="none" stroke="#c8a45c" stroke-width="1"/>
+          <circle cx="40" cy="40" r="33" fill="none" stroke="#c8a45c" stroke-width=".5" stroke-dasharray="2 3" opacity=".55"/>
+          <text x="40" y="54" font-family="Playfair Display, Georgia, serif" font-size="36" font-weight="700" text-anchor="middle" fill="#c8a45c">M</text>
+        </svg>
+      </div>
       <p class="eyebrow reveal">One last thing</p>
       <h2 class="reveal delay-1 serif">
         If this sounds like your room,<br><span class="gold">write me.</span>
@@ -958,6 +1062,7 @@
       <span>October 2–4 · Porto Montenegro</span>
       <span>Year 3 · Non-profit</span>
     </div>
+    <div class="foot-flourish">Designed on the Bay of Kotor · 2026</div>
     <div class="foot-meta">
       <span>Udruženje proizvođača video igara MonteGames</span>
       <span>81000 Podgorica, Crna Gora</span>
@@ -1008,10 +1113,10 @@
   })();
 
   (function particles() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
     let w, h, parts;
+    let mx = -1e4, my = -1e4;
     const COUNT = window.innerWidth < 760 ? 22 : 42;
 
     function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
@@ -1026,11 +1131,19 @@
     }
     resize(); spawn();
     window.addEventListener('resize', () => { resize(); spawn(); });
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    window.addEventListener('mouseleave', () => { mx = -1e4; my = -1e4; });
 
     function frame() {
       if (document.hidden) { requestAnimationFrame(frame); return; }
       ctx.clearRect(0, 0, w, h);
       for (const p of parts) {
+        const dxm = mx - p.x, dym = my - p.y;
+        const dm = Math.sqrt(dxm * dxm + dym * dym);
+        if (dm < 220) {
+          p.x += (dxm / dm) * 0.15;
+          p.y += (dym / dm) * 0.15;
+        }
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
@@ -1045,10 +1158,14 @@
           const dy = parts[i].y - parts[j].y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < 130) {
+            const midx = (parts[i].x + parts[j].x) / 2;
+            const midy = (parts[i].y + parts[j].y) / 2;
+            const dmid = Math.sqrt((mx - midx) ** 2 + (my - midy) ** 2);
+            const warm = dmid < 200 ? 0.04 : 0.0;
             ctx.beginPath();
             ctx.moveTo(parts[i].x, parts[i].y);
             ctx.lineTo(parts[j].x, parts[j].y);
-            ctx.strokeStyle = 'rgba(200,164,92,' + (0.04 * (1 - d / 130)) + ')';
+            ctx.strokeStyle = 'rgba(200,164,92,' + (0.04 * (1 - d / 130) + warm) + ')';
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -1058,6 +1175,110 @@
     }
     requestAnimationFrame(frame);
   })();
+
+  /* ── GSAP layer (split-text, scroll reveals, magnetic, spotlight) ── */
+  window.addEventListener('load', function () {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || typeof gsap === 'undefined') return;
+    if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+    // Split hero h1 into word spans
+    const h1 = document.querySelector('.hero-h1');
+    if (h1) {
+      const html = h1.innerHTML;
+      const tmp = document.createElement('div'); tmp.innerHTML = html;
+      const walk = (node) => {
+        const out = [];
+        node.childNodes.forEach(n => {
+          if (n.nodeType === 3) {
+            n.nodeValue.split(/(\s+)/).forEach(t => {
+              if (!t) return;
+              if (/^\s+$/.test(t)) { out.push(document.createTextNode(' ')); return; }
+              const w = document.createElement('span'); w.className = 'word';
+              const i = document.createElement('span'); i.className = 'inner'; i.textContent = t;
+              w.appendChild(i); out.push(w);
+            });
+          } else if (n.nodeType === 1) {
+              const clone = n.cloneNode(false);
+              walk(n).forEach(c => clone.appendChild(c));
+              // wrap element content's children separately: if element has only text, wrap it as a single word preserving the element
+              if (clone.childNodes.length === 1 && clone.firstChild.nodeType === 3) {
+                const txt = clone.firstChild.nodeValue;
+                clone.innerHTML = '';
+                txt.split(/(\s+)/).forEach(t => {
+                  if (!t) return;
+                  if (/^\s+$/.test(t)) { clone.appendChild(document.createTextNode(' ')); return; }
+                  const w = document.createElement('span'); w.className = 'word';
+                  const i = document.createElement('span'); i.className = 'inner'; i.textContent = t;
+                  // carry parent color via class? simplest: inherit
+                  w.appendChild(i); clone.appendChild(w);
+                });
+              }
+              out.push(clone);
+          }
+        });
+        return out;
+      };
+      const built = walk(tmp);
+      h1.innerHTML = '';
+      built.forEach(n => h1.appendChild(n));
+    }
+
+    // Hero entrance timeline
+    const heroInners = document.querySelectorAll('.hero-h1 .inner');
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.from('.hero .eyebrow', { y: 12, opacity: 0, duration: .7 })
+      .from(heroInners, { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.06 }, '-=.35')
+      .from('.hero .lead', { y: 16, opacity: 0, duration: .8 }, '-=.55')
+      .from('.hero .stats', { y: 20, opacity: 0, duration: .8 }, '-=.5')
+      .from('.hero-scroll-hint', { opacity: 0, duration: .6 }, '-=.3');
+
+    // Mark hero reveals as in (skip IO)
+    document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+
+    // ScrollTrigger reveals: stagger sibling .reveal items in each section
+    if (typeof ScrollTrigger !== 'undefined') {
+      document.querySelectorAll('main > section').forEach(sec => {
+        if (sec.classList.contains('hero')) return;
+        const items = sec.querySelectorAll(':scope .reveal:not(.in)');
+        if (!items.length) return;
+        gsap.set(items, { y: 28, opacity: 0 });
+        ScrollTrigger.create({
+          trigger: sec,
+          start: 'top 82%',
+          once: true,
+          onEnter: () => {
+            gsap.to(items, { y: 0, opacity: 1, duration: .9, ease: 'power3.out', stagger: .08, onStart: () => items.forEach(i => i.classList.add('in')) });
+          }
+        });
+      });
+    }
+
+    // Magnetic CTA buttons (desktop pointer only)
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+        const xTo = gsap.quickTo(btn, 'x', { duration: .35, ease: 'power3.out' });
+        const yTo = gsap.quickTo(btn, 'y', { duration: .35, ease: 'power3.out' });
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          xTo((e.clientX - cx) * 0.25);
+          yTo((e.clientY - cy) * 0.35);
+        });
+        btn.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+      });
+
+      // Tier card cursor spotlight
+      document.querySelectorAll('.tier-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+          card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+        });
+      });
+    }
+  });
 </script>
 </body>
 </html>
