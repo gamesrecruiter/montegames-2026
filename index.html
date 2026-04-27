@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MonteGames 2026 — Partnership Opportunities</title>
+<title>MonteGames 2026 · Sponsorship Deck</title>
 
-<meta name="description" content="MonteGames 2026 — Partnership opportunities for the gaming industry's most intimate conference. October 2–4, Porto Montenegro.">
+<meta name="description" content="MonteGames 2026 Sponsorship Deck. The closed-door return to how industry deals used to be made. October 2 to 4, Porto Montenegro.">
 <meta name="theme-color" content="#0a0a0f">
-<meta property="og:title" content="MonteGames 2026 — Partnership Opportunities">
-<meta property="og:description" content="Three days on the Adriatic waterfront where publishers, investors, and developers meet without the noise of expo halls.">
+<meta property="og:title" content="MonteGames 2026 · Sponsorship Deck">
+<meta property="og:description" content="Three days on the Adriatic waterfront where publishers, investors, and developers close deals off the floor.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://montegames.me/og-card.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230a0a0f'/><text x='50' y='72' font-size='64' font-weight='bold' text-anchor='middle' fill='%23c8a45c'>M</text></svg>">
@@ -107,18 +107,18 @@
 
   .orb {
     position: absolute; border-radius: 50%;
-    filter: blur(110px); mix-blend-mode: screen;
-    opacity: .14; will-change: transform;
+    filter: blur(70px);
+    opacity: .18; will-change: transform;
   }
-  .orb-1 { width: 520px; height: 520px;
+  .orb-1 { width: 460px; height: 460px;
     background: radial-gradient(circle, rgba(200,164,92,.42), transparent 70%);
     top: -8%; left: -6%;
     animation: orbDrift1 28s ease-in-out infinite alternate; }
-  .orb-2 { width: 420px; height: 420px;
+  .orb-2 { width: 380px; height: 380px;
     background: radial-gradient(circle, rgba(70,95,160,.45), transparent 70%);
     top: 40%; right: -8%;
     animation: orbDrift2 32s ease-in-out infinite alternate; }
-  .orb-3 { width: 360px; height: 360px;
+  .orb-3 { width: 320px; height: 320px;
     background: radial-gradient(circle, rgba(40,80,130,.45), transparent 70%);
     bottom: 5%; left: 30%;
     animation: orbDrift3 24s ease-in-out infinite alternate; }
@@ -268,10 +268,10 @@
 
   /* ── Hero ──────────────────────────────────────── */
   .hero {
-    min-height: calc(100vh - 60px);
+    min-height: min(78vh, 760px);
     display: flex; flex-direction: column; justify-content: center;
-    padding-top: clamp(3rem, 6vh, 5rem);
-    padding-bottom: clamp(4rem, 6vh, 6rem);
+    padding-top: clamp(2.5rem, 5vh, 4rem);
+    padding-bottom: clamp(3rem, 5vh, 5rem);
     position: relative;
     isolation: isolate;
   }
@@ -308,16 +308,16 @@
   .prepared-for strong { color: var(--gold); font-weight: 600; }
 
   .hero-scroll-hint {
-    position: absolute;
-    bottom: 1.6rem; left: 50%; transform: translateX(-50%);
-    font-size: .68rem; letter-spacing: .25em; text-transform: uppercase;
+    margin: 2.6rem auto 0;
+    font-size: .64rem; letter-spacing: .28em; text-transform: uppercase;
     color: var(--muted-2);
-    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    display: flex; align-items: center; gap: .55rem; justify-content: center;
+    width: max-content;
   }
   .hero-scroll-hint svg { color: var(--gold); animation: scrollChev 1.8s ease-in-out infinite; }
   @keyframes scrollChev {
     0%, 100% { transform: translateY(0); opacity: .55; }
-    50%      { transform: translateY(4px); opacity: 1; }
+    50%      { transform: translateY(3px); opacity: 1; }
   }
 
   /* ── Buttons ───────────────────────────────────── */
@@ -498,6 +498,8 @@
     padding: .25rem .65rem; border-radius: 100px;
   }
   .tier-head { display: flex; justify-content: space-between; align-items: flex-start; gap: .8rem; }
+  .tier-head > :first-child { min-width: 0; flex: 1; }
+  .tier-head > .tier-price { flex-shrink: 0; }
   .tier-name {
     font-size: 1.02rem; font-weight: 600; color: var(--white);
     display: flex; align-items: center; gap: .55rem; line-height: 1.3;
@@ -518,8 +520,10 @@
     line-height: 1; white-space: nowrap; text-align: right;
   }
   .tier-price small {
-    display: inline-block;
+    display: block;
     margin-top: .5rem;
+    margin-left: auto;
+    width: max-content;
     padding: .15rem .55rem;
     border: 1px solid rgba(200,164,92,.35);
     border-radius: 100px;
@@ -569,7 +573,7 @@
   }
   .letter p { color: var(--white); margin-bottom: 1rem; }
   .letter p:last-child { margin-bottom: 0; }
-  .letter > p:nth-of-type(1)::first-letter {
+  .letter > p:nth-of-type(2)::first-letter {
     font-family: var(--serif);
     font-size: 3.4em;
     font-weight: 700;
@@ -674,8 +678,6 @@
   /* ── CTA section ───────────────────────────────── */
   .cta { text-align: center; padding: clamp(5rem, 10vh, 8rem) 0; background: radial-gradient(ellipse at center, rgba(200,164,92,.08), transparent 70%); }
   .cta-seal { display: flex; justify-content: center; margin-bottom: 1.4rem; }
-  .cta-seal svg { animation: sealSpin 60s linear infinite; }
-  @keyframes sealSpin { to { transform: rotate(360deg); } }
   .cta h2 { max-width: 780px; margin: 0 auto; }
   .cta .lead { margin: 1.4rem auto 0; text-align: center; }
   .cta-actions {
@@ -758,7 +760,7 @@
   <div class="topnav-inner">
     <a href="#top" class="brand">
       Monte<span class="gold">Games</span>
-      <span class="brand-sub">Partnerships ’26</span>
+      <span class="brand-sub">Sponsorship Deck ’26</span>
     </a>
     <nav class="topnav-links" aria-label="Section navigation">
       <a href="#letter">Letter</a>
@@ -774,7 +776,7 @@
   <section class="hero container">
     <div class="place-layer" aria-hidden="true"></div>
     <div class="place-overlay" aria-hidden="true"></div>
-    <p class="eyebrow reveal">MonteGames 2026 · October 2–4 · Porto Montenegro</p>
+    <p class="eyebrow reveal">Sponsorship Deck · MonteGames 2026 · October 2–4 · Porto Montenegro</p>
     <h1 class="reveal delay-1 serif hero-h1">
       Where the gaming industry actually <span class="gold">talks.</span>
     </h1>
@@ -812,33 +814,34 @@
 
   <section id="letter" class="container">
     <div class="letter reveal">
-      <p class="eyebrow">A note, before the deck</p>
-      <p>You probably get fifty of these a month. I'll keep it short.</p>
-      <p>MonteGames isn't a sponsorship opportunity. It's an invitation to the
-        room where publishers, investors and the studios building tomorrow's
-        catalogue actually talk to each other — over three days on the Bay of Kotor,
-        without a single expo booth between them.</p>
-      <p>If that sounds like a marketing line, scroll. If it sounds like the kind
-        of room your team should be in, read the rest. I wrote it for you, not for
-        a procurement folder.</p>
-      <p class="letter-sign">— Miloš,<br><span class="muted">Founder, MonteGames</span></p>
+      <p class="eyebrow">A note, before the sponsorship deck</p>
+      <p>You probably get fifty of these a month. We will keep it short.</p>
+      <p>Somewhere along the way, our industry stopped being an industry and started being a trade show. MonteGames is the return to how the great deals used to be made. Off the floor. Off the grid. Inside a vetted circle of decision-makers, with their partners, on the Adriatic.</p>
+      <p>Zero vendors. Zero pitches. Complete privacy. Three days engineered so the room can hear itself think, and so the conversations that matter can finish without an interruption.</p>
+      <p>If that reads like a marketing line, scroll. If it reads like the room your company belongs in, the rest of this deck is written for you, not for a procurement folder.</p>
+      <p class="letter-sign">Miloš,<br><span class="muted">Founder, MonteGames</span></p>
     </div>
   </section>
 
   <section id="room" class="container">
     <div class="section-head">
       <p class="eyebrow reveal">The room</p>
-      <h2 class="reveal delay-1">The people who <span class="gold">sign games</span>.</h2>
+      <h2 class="reveal delay-1">The people who <span class="gold">sign deals</span>.</h2>
       <p class="reveal delay-2">
         500 hand-picked decision-makers. Three days on the Adriatic.
-        Year three of a format that's growing because it works.
+        Year three of a format that is growing because it works.
       </p>
     </div>
 
     <div class="company-grid reveal delay-2">
       <span class="company-tag platform">Apple</span>
       <span class="company-tag platform">Google</span>
+      <span class="company-tag platform">AppLovin</span>
+      <span class="company-tag publisher">Tencent</span>
+      <span class="company-tag publisher">NetEase</span>
       <span class="company-tag publisher">Netflix Games</span>
+      <span class="company-tag publisher">Legendary</span>
+      <span class="company-tag publisher">Yodo1 Games</span>
       <span class="company-tag publisher">Devolver Digital</span>
       <span class="company-tag publisher">Ubisoft</span>
       <span class="company-tag publisher">Raw Fury</span>
@@ -848,8 +851,6 @@
     <div class="legend reveal delay-3" aria-hidden="true">
       <span class="l-plat">Platforms</span>
       <span class="l-pub">Publishers</span>
-      <span class="l-inv">Investors</span>
-      <span class="l-dev">Developers</span>
     </div>
   </section>
 
@@ -879,7 +880,7 @@
 
     <div class="quote reveal delay-2">
       <blockquote>"Fascinating country. Fascinating event. Fascinating people."</blockquote>
-      <cite>— Jonas Antonsson, Founder of Raw Fury</cite>
+      <cite>Jonas Antonsson, Founder of Raw Fury</cite>
     </div>
   </section>
 
@@ -901,29 +902,36 @@
   <section id="outcomes" class="container">
     <div class="section-head">
       <p class="eyebrow reveal">What sponsorship delivers</p>
-      <h2 class="reveal delay-1">Three outcomes you can <span class="gold">take to your CFO</span>.</h2>
+      <h2 class="reveal delay-1">Four outcomes you can <span class="gold">take to your CEO</span>.</h2>
     </div>
 
     <div class="outcomes">
       <div class="outcome reveal">
         <div class="outcome-num">01</div>
         <div>
-          <h4>500 decision-makers in the room · 10,000 watching the awards</h4>
-          <p>Your brand on stage, signage, badges and the Yugo Game Awards livestream — every touchpoint, the full three days.</p>
+          <h4>Direct access to 500 vetted decision-makers</h4>
+          <p>Publishers, platforms and investors. One closed room. Three days. The kind of face-time a year of LinkedIn cannot buy.</p>
         </div>
       </div>
       <div class="outcome reveal delay-1">
         <div class="outcome-num">02</div>
         <div>
-          <h4>First look at the indie pipeline</h4>
-          <p>Full contact list of every indie applicant. Discover and sign your next title before competitors hear about it.</p>
+          <h4>Hand-curated executive introductions</h4>
+          <p>We broker private 1:1s with the two partners most relevant to your slate. Briefed in advance, seated at the right table, not chased on a show floor.</p>
         </div>
       </div>
       <div class="outcome reveal delay-2">
         <div class="outcome-num">03</div>
         <div>
-          <h4>Relationships that close</h4>
-          <p>Sailing, golfing, island excursions, 5★ stays — conversations that quietly become contracts, with a non-profit story behind every euro.</p>
+          <h4>Closed-door relationships that close</h4>
+          <p>Yacht charters, golf, island excursions, 5★ stays. The setting where contracts get verbally agreed before they get drafted, with a non-profit story behind every euro.</p>
+        </div>
+      </div>
+      <div class="outcome reveal delay-3">
+        <div class="outcome-num">04</div>
+        <div>
+          <h4>First look at the indie pipeline</h4>
+          <p>The full submissions list and every indie applicant contact. Discover and sign your next title before any competitor sees the file.</p>
         </div>
       </div>
     </div>
@@ -951,7 +959,7 @@
             <div class="tier-price">€20,000<small>Annual</small></div>
           </div>
           <div class="tier-value">Included VIP value · <strong>€8,725+</strong></div>
-          <p class="tier-pitch">Host your top five execs and their families on the Bay of Kotor. The play that turns a publisher meeting into a friendship — and a contract.</p>
+          <p class="tier-pitch">Host your top five execs and their families on the Bay of Kotor. The play that turns a publisher meeting into a friendship, and a contract.</p>
           <ul class="tier-list">
             <li>5 VIP tickets + 5× three-night 5★ hotel stays</li>
             <li>Co-curate the VIP Sailing, Golfing &amp; Island Trip programme</li>
@@ -968,7 +976,7 @@
             <div class="tier-price">€15,000<small>Annual</small></div>
           </div>
           <div class="tier-value">Included VIP value · <strong>€7,175+</strong></div>
-          <p class="tier-pitch">Title the night the indie scene watches. Speaker slots, broadcast ads and the full submissions list — your studio in the awards-night spotlight.</p>
+          <p class="tier-pitch">Title the night the indie scene watches. Speaker slots, broadcast ads and the full submissions list, with your studio in the awards-night spotlight.</p>
           <ul class="tier-list">
             <li>2 trailer slots + €2,000 paid social + 2× 30s broadcast ads</li>
             <li>2 MonteGames speaker slots + Main Stage branding</li>
@@ -1019,7 +1027,7 @@
 
     <div class="quote reveal delay-3">
       <blockquote>"In five years we will look back and say MonteGames is where it all started."</blockquote>
-      <cite>— Anders Lauridsen, Skald: Against the Black Priory</cite>
+      <cite>Anders Lauridsen, Skald: Against the Black Priory</cite>
     </div>
   </section>
 
@@ -1034,7 +1042,7 @@
       </div>
       <p class="eyebrow reveal">One last thing</p>
       <h2 class="reveal delay-1 serif">
-        If this sounds like your room,<br><span class="gold">write me.</span>
+        If this sounds like your room,<br><span class="gold">write to us.</span>
       </h2>
       <p class="lead reveal delay-2" id="ctaPersonalized">
         Pick a tier, ask for a custom package, or just say hello. One-of-a-kind
@@ -1042,8 +1050,8 @@
       </p>
 
       <div class="cta-actions reveal delay-2">
-        <a class="btn btn-primary" href="mailto:milos@montegames.me?subject=MonteGames%202026%20Partnership">
-          Email Miloš <span class="arrow">→</span>
+        <a class="btn btn-primary" href="mailto:milos@montegames.me?subject=MonteGames%202026%20Sponsorship">
+          Write to us <span class="arrow">→</span>
         </a>
       </div>
 
@@ -1098,8 +1106,8 @@
     const target = (params.get('for') || '').toLowerCase();
     if (!target) return;
     const map = {
-      bytedance: { name: 'ByteDance', cta: "ByteDance's reach meets MonteGames' access — let's unlock the next generation of games together." },
-      netease:   { name: 'NetEase',   cta: "NetEase's vision meets European indie creativity — a partnership built for discovery." },
+      bytedance: { name: 'ByteDance', cta: "ByteDance's reach meets MonteGames' access. Let's unlock the next generation of games together." },
+      netease:   { name: 'NetEase',   cta: "NetEase's vision meets European indie creativity. A partnership built for discovery." },
       apple:     { name: 'Apple',     cta: "Align with a curated, premium Mediterranean event that reflects Apple's commitment to quality." },
       google:    { name: 'Google',    cta: "Google's platform meets the studios shaping what gets played next on Android and beyond." }
     };
@@ -1117,61 +1125,69 @@
     const ctx = canvas.getContext('2d');
     let w, h, parts;
     let mx = -1e4, my = -1e4;
-    const COUNT = window.innerWidth < 760 ? 22 : 42;
+    const COUNT = window.innerWidth < 760 ? 14 : 26;
+    const LINK = 120;
+    const LINK2 = LINK * LINK;
+    let heroVisible = true;
+    let last = 0;
+    const FRAME_MS = 1000 / 30;
 
     function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
     function spawn() {
       parts = Array.from({ length: COUNT }, () => ({
         x: Math.random() * w, y: Math.random() * h,
         r: Math.random() * 1.4 + 0.4,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        a: Math.random() * 0.35 + 0.1
+        vx: (Math.random() - 0.5) * 0.22,
+        vy: (Math.random() - 0.5) * 0.22,
+        a: Math.random() * 0.30 + 0.10
       }));
     }
     resize(); spawn();
-    window.addEventListener('resize', () => { resize(); spawn(); });
+    window.addEventListener('resize', () => { resize(); spawn(); }, { passive: true });
     window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
     window.addEventListener('mouseleave', () => { mx = -1e4; my = -1e4; });
 
-    function frame() {
-      if (document.hidden) { requestAnimationFrame(frame); return; }
+    // Pause when scrolled away from hero (huge perf win lower in the page)
+    const hero = document.querySelector('.hero');
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        heroVisible = entries[0].isIntersecting;
+      }, { threshold: 0 }).observe(hero);
+    }
+
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      if (document.hidden || !heroVisible) return;
+      if (ts - last < FRAME_MS) return;
+      last = ts;
       ctx.clearRect(0, 0, w, h);
+      const goldFill = 'rgba(200,164,92,';
       for (const p of parts) {
-        const dxm = mx - p.x, dym = my - p.y;
-        const dm = Math.sqrt(dxm * dxm + dym * dym);
-        if (dm < 220) {
-          p.x += (dxm / dm) * 0.15;
-          p.y += (dym / dm) * 0.15;
-        }
         p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+        if (p.x < 0) p.x = w; else if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h; else if (p.y > h) p.y = 0;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200,164,92,' + p.a + ')';
+        ctx.fillStyle = goldFill + p.a + ')';
         ctx.fill();
       }
+      ctx.lineWidth = 0.5;
       for (let i = 0; i < parts.length; i++) {
+        const a = parts[i];
         for (let j = i + 1; j < parts.length; j++) {
-          const dx = parts[i].x - parts[j].x;
-          const dy = parts[i].y - parts[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 130) {
-            const midx = (parts[i].x + parts[j].x) / 2;
-            const midy = (parts[i].y + parts[j].y) / 2;
-            const dmid = Math.sqrt((mx - midx) ** 2 + (my - midy) ** 2);
-            const warm = dmid < 200 ? 0.04 : 0.0;
+          const b = parts[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < LINK2) {
+            const alpha = 0.045 * (1 - Math.sqrt(d2) / LINK);
             ctx.beginPath();
-            ctx.moveTo(parts[i].x, parts[i].y);
-            ctx.lineTo(parts[j].x, parts[j].y);
-            ctx.strokeStyle = 'rgba(200,164,92,' + (0.04 * (1 - d / 130) + warm) + ')';
-            ctx.lineWidth = 0.5;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = goldFill + alpha + ')';
             ctx.stroke();
           }
         }
       }
-      requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
   })();
@@ -1224,17 +1240,20 @@
       built.forEach(n => h1.appendChild(n));
     }
 
-    // Hero entrance timeline
-    const heroInners = document.querySelectorAll('.hero-h1 .inner');
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from('.hero .eyebrow', { y: 12, opacity: 0, duration: .7 })
-      .from(heroInners, { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.06 }, '-=.35')
-      .from('.hero .lead', { y: 16, opacity: 0, duration: .8 }, '-=.55')
-      .from('.hero .stats', { y: 20, opacity: 0, duration: .8 }, '-=.5')
-      .from('.hero-scroll-hint', { opacity: 0, duration: .6 }, '-=.3');
-
-    // Mark hero reveals as in (skip IO)
+    // Hero entrance timeline (explicit destinations so .reveal opacity:0 doesn't trap us)
     document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('in'));
+    const heroInners = document.querySelectorAll('.hero-h1 .inner');
+    gsap.set('.hero .eyebrow', { y: 12, opacity: 0 });
+    gsap.set(heroInners, { yPercent: 110, opacity: 0 });
+    gsap.set('.hero .lead', { y: 16, opacity: 0 });
+    gsap.set('.hero .stats', { y: 20, opacity: 0 });
+    gsap.set('.hero-scroll-hint', { opacity: 0 });
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to('.hero .eyebrow', { y: 0, opacity: 1, duration: .7 })
+      .to(heroInners, { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.06 }, '-=.35')
+      .to('.hero .lead', { y: 0, opacity: 1, duration: .8 }, '-=.55')
+      .to('.hero .stats', { y: 0, opacity: 1, duration: .8 }, '-=.5')
+      .to('.hero-scroll-hint', { opacity: 1, duration: .6 }, '-=.3');
 
     // ScrollTrigger reveals: stagger sibling .reveal items in each section
     if (typeof ScrollTrigger !== 'undefined') {
